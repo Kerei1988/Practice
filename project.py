@@ -8,6 +8,11 @@ class PriceMachine():
         self.data = []
     
     def load_prices(self, file_path=''):
+        """
+        Функция принимает адрес папки, сканирует ее и загружает данные в dataframe
+        :param file_path: str
+        :return self.data: DataFrame
+        """
         possible_names = ["товар", "название", "наименование", "продукт", "розница", "цена", "вес", "масса", "фасовка",
                           'Файл']
         files = [file for file in os.listdir(file_path) if "price" in file]
@@ -29,6 +34,10 @@ class PriceMachine():
 
 
     def export_to_html(self, fname='output.html'):
+        """
+        Функция выгружает все данные из DataFrame в HTML - файл под названием 'output.html'
+
+        """
         result = '''
         <!DOCTYPE html>
         <html>
@@ -62,6 +71,11 @@ class PriceMachine():
         return "Данные выгружены в файл 'output.html'"
 
     def find_text(self, text):
+        """
+        Функция получает текст и возвращает список позиций, содержащий этот текст в названии позиции
+        :param text: str
+        :return: DataFrame
+        """
         keyword = text.lower()
         self.data['Название'] = self.data.loc[:, "Название"].apply(lambda x: x.lower())
         filter_data = self.data[self.data['Название'].str.contains(keyword) == True]
